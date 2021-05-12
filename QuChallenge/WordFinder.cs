@@ -10,17 +10,17 @@ namespace QuChallenge
 
         public WordFinder(IEnumerable<string> matrix)
         {
-            if (matrix == null || matrix.Count() != 64)
+            if (matrix == null || !matrix.Any() || matrix.Count() > 64)
                 throw new ArgumentException("The length of the input strings is incorrect");
 
-            if (matrix.Any(x => x.Length != 64))
+            if (matrix.Any(x => x.Length != matrix.Count()))
                 throw new ArgumentException("The size of the input string is incorrect");
 
             //Add the horizontal combinations
             combinations.AddRange(matrix);
 
             //Concatenate characters to create vertical combinations
-            for (var i = 0; i < 64; i++)
+            for (var i = 0; i < matrix.Count(); i++)
             {
                 var combination = new string(matrix.Select(c => c[i]).ToArray());
 
